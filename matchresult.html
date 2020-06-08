@@ -1,0 +1,115 @@
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <style>
+    ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid #e7e7e7;
+      background-color: #f3f3f3;
+    }
+
+    li {
+      float: left;
+    }
+
+    li a {
+      display: block;
+      color: #666;
+      text-align: center;
+      padding: 14px 16px;
+    }
+
+    li a.active {
+      color: white;
+      background-color: #4CAF50;
+    }
+  .Search{
+    float:right;
+    padding: 12px;
+    background: #ddd;
+  }
+
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <meta charset="utf-8">
+  <title></title>
+  <ul>
+    <li><a href="index.html">HOME</a></li>
+    <li><a href="searchplayer.html">SEARCH PLAYER</a></li>
+    <li><a href="fantisy team.html">FANTASY TEAM</a></li>
+    <li><a href="livescore.html">LIVE SCORE</a></li>
+    <li><a class="active" href="matchresult.html">MATCH RESULTS</a></li>
+  </ul>
+</head>
+<style>
+    #id1{
+   width: 10%;
+   background-color: #5e71ff;
+   color: white;
+   padding: 14px 20px;
+   border: none;
+   border-radius: 4px;
+   cursor: pointer;
+}
+   div{
+    text-align:center;
+   }
+
+  </style>
+  <body><br>
+    <div>
+    <input type="button" onclick="test1()" id="id1"name="btn" value="MATCH RESULT">
+  </div>
+  <div id="abc">
+
+  </div>
+</body>
+<script >
+  function test1()
+  {
+   var xhr=new XMLHttpRequest();
+   xhr.open("GET","https://cricapi.com/api/matches?apikey=ZiYXoAOSxXMWfVoQ5MfZFhZXFWq2");
+   xhr.onreadystatechange=test;
+   function test()
+   {
+     if(this.status==200 && this.readyState == 4)
+     {
+       console.log("hi")
+       var res_data= JSON.parse(this.responseText)
+       console.log(res_data)
+       for(var i=0;i<5;i++)
+       {
+         var divv=document.createElement("div");
+         var date=document.createElement("p");
+         var toss_winner_team=document.createElement("p");
+         var type=document.createElement("p")
+         var winner_team=document.createElement("p");
+         var br=document.createElement("hr");
+         divv.appendChild(date);
+         divv.appendChild(toss_winner_team);
+         divv.appendChild(type);
+         divv.appendChild(winner_team);
+         divv.appendChild(br);
+         document.getElementById('abc').appendChild(divv);
+         date.innerHTML="DATE - - "+res_data.matches[i].date;
+         toss_winner_team.innerHTML=" TOSS WINNER - - "+res_data.matches[i].toss_winner_team;
+         type.innerHTML="MATCH TYPE - - "+res_data.matches[i].type;
+         winner_team.innerHTML="WINNING TEAM - - "+res_data.matches[i].winner_team;
+       }
+      }
+   }
+
+ xhr.send();
+}
+</script>
+</html>
